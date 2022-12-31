@@ -1,5 +1,11 @@
 use yew::prelude::*;
 
+#[derive(Properties, PartialEq)]
+struct Todo {
+    pub id: usize,
+    pub contents: String,
+}
+
 #[function_component]
 fn App() -> Html {
     let counter = use_state(|| 0);
@@ -11,11 +17,22 @@ fn App() -> Html {
         }
     };
 
+    // let initial_todos = HashMap::Todo::new();
+    // initial_todos.insert(1, "Test");
+    // let display_todos = todos.iter();
+
+    let todos = use_state(|| vec!["Todo", "Todo2"]);
+
     html! {
-        <div>
-            <button {onclick}>{ "+1" }</button>
-            <p>{ *counter }</p>
-        </div>
+        <main>
+            <header>{"Todos"}</header>
+            <ul>
+                { for todos.iter().map(|todo| html! { <li>{todo}</li> }) }
+            </ul>
+            <footer>
+                <button {onclick}>{ "Add" }</button>
+            </footer>
+        </main>
     }
 }
 
